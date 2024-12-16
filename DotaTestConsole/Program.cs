@@ -10,6 +10,7 @@ GameStateListener gsl = new GameStateListener(3000);
 var roshan_death_time = 0;
 var roshan_spawn_min_time = 0;
 var roshan_spawn_max_time = 0;
+var roshan_death_count = 0;
 var roshan_dead = false;
 
 // Generate the GSI configuration file if it doesn't exist
@@ -55,11 +56,61 @@ void OnNewGameState(GameState gs)
     Console.WriteLine($"Game Clock Time: {gs.Map.ClockTime} seconds");
     if (roshan_spawn_max_time == 0 && roshan_dead == false)
     {
-        Console.WriteLine($"Roshan is still alive and will drop: {gs.Roshan.Drops.Items}");
+        if (roshan_death_count == 0)
+        {
+            Console.WriteLine("Roshan is still alive and will drop: Aegis");
+        }
+        else if(roshan_death_count == 1)
+        {
+            if (gs.Map.IsDaytime)
+            {
+                Console.WriteLine("Roshan is still alive and will drop: Aegis, Roshan's Banner");
+            }
+            else
+            {
+                Console.WriteLine("Roshan is still alive and will drop: Aegis, Cheese");
+            }
+        }
+        else if(roshan_death_count >= 2)
+        {
+            if (gs.Map.IsDaytime)
+            {
+                Console.WriteLine("Roshan is still alive and will drop: Aegis, Roshan's Banner, Refresher Shard");
+            }
+            else
+            {
+                Console.WriteLine("Roshan is still alive and will drop: Aegis, Cheese, Aghanim's Blessing");
+            }
+        }
     }
     else if (roshan_spawn_min_time == 0 && roshan_spawn_max_time != 0)
     {
-        Console.WriteLine($"Roshan might be alive and will drop this items: {gs.Roshan.Drops.Items} OR it will be alive in {roshan_spawn_max_time} seconds for sure");
+        if (roshan_death_count == 0)
+        {
+            Console.WriteLine($"Roshan might be alive and will drop this items: Aegis OR it will be alive in {roshan_spawn_max_time} seconds for sure");
+        }
+        else if (roshan_death_count == 1)
+        {
+            if (gs.Map.IsDaytime)
+            {
+                Console.WriteLine($"Roshan might be alive and will drop this items: Aegis, Roshan's Banner OR it will be alive in {roshan_spawn_max_time} seconds for sure");
+            }
+            else
+            {
+                Console.WriteLine($"Roshan might be alive and will drop this items: Aegis, Cheese OR it will be alive in {roshan_spawn_max_time} seconds for sure");
+            }
+        }
+        else if (roshan_death_count >= 2)
+        {
+            if (gs.Map.IsDaytime)
+            {
+                Console.WriteLine($"Roshan might be alive and will drop this items: Aegis, Roshan's Banner, Refresher Shard OR it will be alive in {roshan_spawn_max_time} seconds for sure");
+            }
+            else
+            {
+                Console.WriteLine($"Roshan might be alive and will drop this items: Aegis, Cheese, Aghanim's Blessing OR it will be alive in {roshan_spawn_max_time} seconds for sure");
+            }
+        }
         roshan_spawn_max_time--;
     }
     else
@@ -80,6 +131,7 @@ void OnNewGameState(GameState gs)
             roshan_spawn_min_time += 480;
             roshan_spawn_max_time += 660;
             roshan_dead = true;
+            roshan_death_count++;
         }
     }
 }
