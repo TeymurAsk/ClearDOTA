@@ -2,12 +2,15 @@
 using Dota2GSI.EventMessages;
 using Dota2GSI.Nodes;
 using Dota2GSI.Nodes.EventsProvider;
+using System.Linq;
 
 GameStateListener gsl = new GameStateListener(3000);
 
 // GLOBAL Variables
-var roshan_death = 0; 
-
+var roshan_death_time = 0;
+var roshan_spawn_min_time = 0;
+var roshan_spawn_max_time = 0;
+var roshan_dead = false;
 
 // Generate the GSI configuration file if it doesn't exist
 if (!gsl.GenerateGSIConfigFile("Example"))
@@ -50,12 +53,33 @@ void OnNewGameState(GameState gs)
     Console.WriteLine($"Playing Team: {gs.Player.LocalPlayer.Team}");
     Console.WriteLine($"Radiant Score: {gs.Map.RadiantScore}, Dire Score: {gs.Map.DireScore}");
     Console.WriteLine($"Game Clock Time: {gs.Map.ClockTime} seconds");
-    Console.WriteLine($"Roshan health: {gs.Roshan.Health}");
+    if (roshan_spawn_max_time == 0 && roshan_dead == false)
+    {
+        Console.WriteLine($"Roshan is still alive and will drop: {gs.Roshan.Drops.Items}");
+    }
+    else if (roshan_spawn_min_time == 0 && roshan_spawn_max_time != 0)
+    {
+        Console.WriteLine($"Roshan might be alive and will drop this items: {gs.Roshan.Drops.Items} OR it will be alive in {roshan_spawn_max_time} seconds for sure");
+        roshan_spawn_max_time--;
+    }
+    else
+    {
+        Console.WriteLine($"Roshan is dead and gonna be revived in a period from {roshan_spawn_min_time} to {roshan_spawn_max_time} seconds");
+        roshan_spawn_max_time--;
+        roshan_spawn_min_time--;
+    }
+    if (roshan_spawn_min_time == 0)
+    {
+        roshan_dead = false;
+    }
     foreach(var gameevent in gs.Events)
     {
-        if (gameevent.EventType == EventType.Roshan_killed)
+        if (gameevent.EventType == EventType.Roshan_killed && !roshan_dead) 
         {
-            roshan_death = gs.Map.ClockTime;  
+            roshan_death_time = gs.Map.ClockTime;
+            roshan_spawn_min_time += 480;
+            roshan_spawn_max_time += 660;
+            roshan_dead = true;
         }
     }
 }
