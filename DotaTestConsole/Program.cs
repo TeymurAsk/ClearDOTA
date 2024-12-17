@@ -12,7 +12,7 @@ var roshan_spawn_min_time = 0;
 var roshan_spawn_max_time = 0;
 var roshan_death_count = 0;
 var roshan_dead = false;
-
+var my_buyback_cooldown = 0;
 // Generate the GSI configuration file if it doesn't exist
 if (!gsl.GenerateGSIConfigFile("Example"))
 {
@@ -170,5 +170,9 @@ void OnGameEvent(DotaGameEvent gameEvent)
             Console.WriteLine($"{id} : {playersabilities}");
         }
     }
-    if (game)
+    if (gameEvent is HeroDied heroDied)
+    {
+        Console.WriteLine($"{heroDied.Player.Hero.Name} is dead and doesn't have buyback for {heroDied.Player.Hero.BuybackCooldown} seconds ");
+        
+    }
 }
