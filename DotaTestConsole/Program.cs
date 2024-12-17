@@ -23,6 +23,7 @@ if (!gsl.GenerateGSIConfigFile("Example"))
 // Subscribe to events
 gsl.GameEvent += OnGameEvent;
 gsl.NewGameState += OnNewGameState;
+
 // Start listening for game state updates
 if (!gsl.Start())
 {
@@ -151,5 +152,23 @@ void OnGameEvent(DotaGameEvent gameEvent)
         {
             Console.WriteLine($"The ability {abilityUpdated.New.Name} is in cooldown for {abilityUpdated.New.Cooldown} seconds");
         }
-    }    
+    }
+    if (gameEvent is PlayerGameplayEvent gameplayEvent)
+    {
+        Console.WriteLine($"{gameplayEvent.Player.Hero.Name},{gameplayEvent.Player.Hero.BuybackCooldown}");
+    }
+    if(gameEvent is AbilitiesUpdated abilitiesUpdated)
+    {
+        var dct_radiantteam_abilities = abilitiesUpdated.New.GetForTeam(PlayerTeam.Radiant);
+        foreach(var (id, playersabilities) in dct_radiantteam_abilities)
+        {
+            Console.WriteLine($"{id} : {playersabilities}");
+        }
+        var dct_direteam_abilities = abilitiesUpdated.New.GetForTeam(PlayerTeam.Dire);
+        foreach (var (id, playersabilities) in dct_radiantteam_abilities)
+        {
+            Console.WriteLine($"{id} : {playersabilities}");
+        }
+    }
+    if (game)
 }
