@@ -55,6 +55,7 @@ void OnNewGameState(GameState gs)
     Console.WriteLine($"Playing Team: {gs.Player.LocalPlayer.Team}");
     Console.WriteLine($"Radiant Score: {gs.Map.RadiantScore}, Dire Score: {gs.Map.DireScore}");
     Console.WriteLine($"Game Clock Time: {gs.Map.ClockTime} seconds");
+    Console.WriteLine($"SF's buyback cooldown is: {my_buyback_cooldown}");
     if (roshan_spawn_max_time == 0 && roshan_dead == false)
     {
         if (roshan_death_count == 0)
@@ -173,6 +174,6 @@ void OnGameEvent(DotaGameEvent gameEvent)
     if (gameEvent is HeroDied heroDied)
     {
         Console.WriteLine($"{heroDied.Player.Hero.Name} is dead and doesn't have buyback for {heroDied.Player.Hero.BuybackCooldown} seconds ");
-        
+        my_buyback_cooldown = heroDied.Player.Hero.BuybackCooldown;
     }
 }
