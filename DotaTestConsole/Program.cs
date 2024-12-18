@@ -139,41 +139,31 @@ void OnNewGameState(GameState gs)
 }
 void OnGameEvent(DotaGameEvent gameEvent)
 {
+    if (gameEvent is AbilityUpdated abilityUpdated)
+    {
+        Console.WriteLine($"{abilityUpdated.Player.Abilities.First(x => x.IsUltimate).Cooldown}");
+        
+    }
     if (gameEvent is TimeOfDayChanged tod_changed)
     {
         Console.WriteLine($"Is daytime: {tod_changed.IsDaytime} Is Nightstalker night: {tod_changed.IsNightstalkerNight}");
     }
-    if (gameEvent is AbilityUpdated abilityUpdated)
-    {
-        if (abilityUpdated.New.Level > abilityUpdated.Previous.Level)
-        {
-            Console.WriteLine($"The ability {abilityUpdated.New.Name} is upgraded to level {abilityUpdated.New.Level}");
-        }
-        else
-        {
-            Console.WriteLine($"The ability {abilityUpdated.New.Name} is in cooldown for {abilityUpdated.New.Cooldown} seconds");
-        }
-    }
     if (gameEvent is PlayerGameplayEvent gameplayEvent)
     {
         Console.WriteLine($"{gameplayEvent.Player.Hero.Name},{gameplayEvent.Player.Hero.BuybackCooldown}");
-    }
-    if(gameEvent is AbilitiesUpdated abilitiesUpdated)
-    {
-        var dct_radiantteam_abilities = abilitiesUpdated.New.GetForTeam(PlayerTeam.Radiant);
-        foreach(var (id, playersabilities) in dct_radiantteam_abilities)
-        {
-            Console.WriteLine($"{id} : {playersabilities}");
-        }
-        var dct_direteam_abilities = abilitiesUpdated.New.GetForTeam(PlayerTeam.Dire);
-        foreach (var (id, playersabilities) in dct_radiantteam_abilities)
-        {
-            Console.WriteLine($"{id} : {playersabilities}");
-        }
     }
     if (gameEvent is HeroDied heroDied)
     {
         Console.WriteLine($"{heroDied.Player.Hero.Name} is dead and doesn't have buyback for {heroDied.Player.Hero.BuybackCooldown} seconds ");
         my_buyback_cooldown = heroDied.Player.Hero.BuybackCooldown;
     }
+    //if(gameEvent is AbilityDetailsChanged abilityDetailsChanged)
+    //{
+    //    var abis = abilityDetailsChanged.New.Where(x => x.IsUltimate);
+    //    foreach (var ability in abis)
+    //    {
+    //        Console.WriteLine($"{ability.Name} ::: {ability.Cooldown}");
+    //    }
+    //}
+
 }
