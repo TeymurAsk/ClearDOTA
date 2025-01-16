@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Dota2GSI" Version="2.1.1.8897" />
+    <PackageReference Include="System.Speech" Version="9.0.1" />
   </ItemGroup>
 
 </Project>

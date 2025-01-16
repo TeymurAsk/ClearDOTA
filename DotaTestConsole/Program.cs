@@ -3,9 +3,12 @@ using Dota2GSI.EventMessages;
 using Dota2GSI.Nodes;
 using Dota2GSI.Nodes.EventsProvider;
 using System.Linq;
+using System.Speech.Synthesis;
 
 GameStateListener gsl = new GameStateListener(3000);
-
+SpeechSynthesizer synthesizer = new SpeechSynthesizer();
+synthesizer.Volume = 100; // Volume (0-100)
+synthesizer.Rate = 0; // Speaking rate (-10 to 10)
 // GLOBAL Variables
 var roshan_death_time = 0;
 var roshan_spawn_min_time = 0;
@@ -56,20 +59,24 @@ void OnNewGameState(GameState gs)
     Console.WriteLine($"Radiant Score: {gs.Map.RadiantScore}, Dire Score: {gs.Map.DireScore}");
     Console.WriteLine($"Game Clock Time: {gs.Map.ClockTime} seconds");
     Console.WriteLine($"Hero's buyback cd: {gs.Hero.LocalPlayer.BuybackCooldown}");
-    if((gs.Map.ClockTime % 120 == 0) && gs.Map.ClockTime < 300)
+    if((gs.Map.ClockTime % 120 == 0) && gs.Map.ClockTime < 300 && gs.Map.ClockTime>10)
     {
+        synthesizer.Speak("The rune of water appeared!");
         Console.WriteLine("The rune of water appeared");
     }
-    else if((gs.Map.ClockTime % 120 == 0) && gs.Map.ClockTime > 300)
+    else if((gs.Map.ClockTime % 120 == 0) && gs.Map.ClockTime > 300 && gs.Map.ClockTime > 10)
     {
+        synthesizer.Speak("The power rune appeared!");
         Console.WriteLine("The power rune appeared");
     }
-    if (gs.Map.ClockTime % 420 == 0)
+    if (gs.Map.ClockTime % 420 == 0 && gs.Map.ClockTime > 10)
     {
+        synthesizer.Speak("The run of wisdom appeared!");
         Console.WriteLine("The run of wisdom appeared");
     }
-    if (gs.Map.ClockTime % 180 == 0)
+    if (gs.Map.ClockTime % 180 == 0 && gs.Map.ClockTime > 10)
     {
+        synthesizer.Speak("The bounty and healing lotus just appeared!");
         Console.WriteLine("The bounty and healing lotus just appeared");
     }
     if (my_buyback_cooldown > 0)
@@ -109,16 +116,19 @@ void OnNewGameState(GameState gs)
     {
         if (roshan_death_count == 0)
         {
+            synthesizer.Speak("Roshan might be alive!");
             Console.WriteLine($"Roshan might be alive and will drop this items: Aegis OR it will be alive in {roshan_spawn_max_time} seconds for sure");
         }
         else if (roshan_death_count == 1)
         {
             if (gs.Map.IsDaytime)
             {
+                synthesizer.Speak("Roshan might be alive!");
                 Console.WriteLine($"Roshan might be alive and will drop this items: Aegis, Roshan's Banner OR it will be alive in {roshan_spawn_max_time} seconds for sure");
             }
             else
             {
+                synthesizer.Speak("Roshan might be alive!");
                 Console.WriteLine($"Roshan might be alive and will drop this items: Aegis, Cheese OR it will be alive in {roshan_spawn_max_time} seconds for sure");
             }
         }
@@ -126,10 +136,12 @@ void OnNewGameState(GameState gs)
         {
             if (gs.Map.IsDaytime)
             {
+                synthesizer.Speak("Roshan might be alive!");
                 Console.WriteLine($"Roshan might be alive and will drop this items: Aegis, Roshan's Banner, Refresher Shard OR it will be alive in {roshan_spawn_max_time} seconds for sure");
             }
             else
             {
+                synthesizer.Speak("Roshan might be alive!");
                 Console.WriteLine($"Roshan might be alive and will drop this items: Aegis, Cheese, Aghanim's Blessing OR it will be alive in {roshan_spawn_max_time} seconds for sure");
             }
         }
