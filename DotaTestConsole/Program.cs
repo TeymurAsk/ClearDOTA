@@ -60,7 +60,11 @@ void OnNewGameState(GameState gs)
     {
         Console.WriteLine("The rune of water appeared");
     }
-    if(gs.Map.ClockTime % 420 == 0)
+    else if((gs.Map.ClockTime % 120 == 0) && gs.Map.ClockTime > 300)
+    {
+        Console.WriteLine("The power rune appeared");
+    }
+    if (gs.Map.ClockTime % 420 == 0)
     {
         Console.WriteLine("The run of wisdom appeared");
     }
