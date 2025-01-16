@@ -56,9 +56,13 @@ void OnNewGameState(GameState gs)
     Console.WriteLine($"Radiant Score: {gs.Map.RadiantScore}, Dire Score: {gs.Map.DireScore}");
     Console.WriteLine($"Game Clock Time: {gs.Map.ClockTime} seconds");
     Console.WriteLine($"Hero's buyback cd: {gs.Hero.LocalPlayer.BuybackCooldown}");
-    if((gs.Map.ClockTime % 120 == 0))
+    if((gs.Map.ClockTime % 120 == 0) && gs.Map.ClockTime < 300)
     {
         Console.WriteLine("The rune of water appeared");
+    }
+    if(gs.Map.ClockTime % 420 == 0)
+    {
+        Console.WriteLine("The run of wisdom appeared");
     }
     if (my_buyback_cooldown > 0)
     {
