@@ -55,7 +55,15 @@ void OnNewGameState(GameState gs)
     Console.WriteLine($"Playing Team: {gs.Player.LocalPlayer.Team}");
     Console.WriteLine($"Radiant Score: {gs.Map.RadiantScore}, Dire Score: {gs.Map.DireScore}");
     Console.WriteLine($"Game Clock Time: {gs.Map.ClockTime} seconds");
-    Console.WriteLine($"SF's buyback cooldown is: {my_buyback_cooldown}");
+    Console.WriteLine($"Hero's buyback cd: {gs.Hero.LocalPlayer.BuybackCooldown}");
+    if((gs.Map.ClockTime % 120 == 0))
+    {
+        Console.WriteLine("The rune of water appeared");
+    }
+    if (my_buyback_cooldown > 0)
+    {
+        my_buyback_cooldown--;
+    }
     if (roshan_spawn_max_time == 0 && roshan_dead == false)
     {
         if (roshan_death_count == 0)
@@ -139,23 +147,9 @@ void OnNewGameState(GameState gs)
 }
 void OnGameEvent(DotaGameEvent gameEvent)
 {
-    if (gameEvent is AbilityUpdated abilityUpdated)
-    {
-        Console.WriteLine($"{abilityUpdated.Player.Abilities.First(x => x.IsUltimate).Cooldown}");
-        
-    }
     if (gameEvent is TimeOfDayChanged tod_changed)
     {
         Console.WriteLine($"Is daytime: {tod_changed.IsDaytime} Is Nightstalker night: {tod_changed.IsNightstalkerNight}");
-    }
-    if (gameEvent is PlayerGameplayEvent gameplayEvent)
-    {
-        Console.WriteLine($"{gameplayEvent.Player.Hero.Name},{gameplayEvent.Player.Hero.BuybackCooldown}");
-    }
-    if (gameEvent is HeroDied heroDied)
-    {
-        Console.WriteLine($"{heroDied.Player.Hero.Name} is dead and doesn't have buyback for {heroDied.Player.Hero.BuybackCooldown} seconds ");
-        my_buyback_cooldown = heroDied.Player.Hero.BuybackCooldown;
     }
     //if(gameEvent is AbilityDetailsChanged abilityDetailsChanged)
     //{
