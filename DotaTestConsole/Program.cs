@@ -64,6 +64,10 @@ void OnNewGameState(GameState gs)
     {
         Console.WriteLine("The run of wisdom appeared");
     }
+    if (gs.Map.ClockTime % 180 == 0)
+    {
+        Console.WriteLine("The bounty and healing lotus just appeared");
+    }
     if (my_buyback_cooldown > 0)
     {
         my_buyback_cooldown--;
