@@ -21,7 +21,7 @@ Clone the repo to get access to the code and provide in you IDE.
 ```bash
 git clone https://github.com/your-username/clear-dota.git
 cd clear-dota
-
+```
 ### Usage
 
 1. **Set Up Dota 2 GSI**:
