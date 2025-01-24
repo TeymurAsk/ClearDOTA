@@ -175,13 +175,4 @@ void OnGameEvent(DotaGameEvent gameEvent)
     {
         Console.WriteLine($"Is daytime: {tod_changed.IsDaytime} Is Nightstalker night: {tod_changed.IsNightstalkerNight}");
     }
-    //if(gameEvent is AbilityDetailsChanged abilityDetailsChanged)
-    //{
-    //    var abis = abilityDetailsChanged.New.Where(x => x.IsUltimate);
-    //    foreach (var ability in abis)
-    //    {
-    //        Console.WriteLine($"{ability.Name} ::: {ability.Cooldown}");
-    //    }
-    //}
-
 }
