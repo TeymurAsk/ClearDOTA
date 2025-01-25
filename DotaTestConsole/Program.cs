@@ -16,6 +16,14 @@ var roshan_spawn_max_time = 0;
 var roshan_death_count = 0;
 var roshan_dead = false;
 var my_buyback_cooldown = 0;
+var heroRecommendations = new Dictionary<string, List<string>>
+{
+    { "1", new List<string> { "Phantom Assassin", "Lifestealer", "Juggernaut", "Terrorblade", "Drow Ranger" } },
+    { "2", new List<string> { "Storm Spirit", "Invoker", "Shadow Fiend", "Tinker", "Puck" } },
+    { "3", new List<string> { "Tidehunter", "Centaur Warrunner", "Dark Seer", "Beastmaster", "Bristleback" } },
+    { "5", new List<string> { "Crystal Maiden", "Lion", "Dazzle", "Disruptor", "Warlock" } },
+    { "4", new List<string> { "Earth Spirit", "Tusk", "Rubick", "Mirana", "Clockwerk" } }
+};
 // Generate the GSI configuration file if it doesn't exist
 if (!gsl.GenerateGSIConfigFile("Example"))
 {
