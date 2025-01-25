@@ -69,6 +69,10 @@ void OnNewGameState(GameState gs)
     Console.WriteLine($"Radiant Score: {gs.Map.RadiantScore}, Dire Score: {gs.Map.DireScore}");
     Console.WriteLine($"Game Clock Time: {gs.Map.ClockTime} seconds");
     Console.WriteLine($"Hero's buyback cd: {gs.Hero.LocalPlayer.BuybackCooldown}");
+    if (gs.Draft != null)
+    {
+        List<string> enemypick = GetEnemyPicks(gs);
+    }
     if((gs.Map.ClockTime % 120 == 0) && gs.Map.ClockTime < 300 && gs.Map.ClockTime>10)
     {
         synthesizer.Speak("The rune of water appeared!");
@@ -185,4 +189,25 @@ void OnGameEvent(DotaGameEvent gameEvent)
     {
         Console.WriteLine($"Is daytime: {tod_changed.IsDaytime} Is Nightstalker night: {tod_changed.IsNightstalkerNight}");
     }
+}
+List<string> GetEnemyPicks(GameState gs)
+{
+    List<string> enemyPicks = new List<string>();
+    if (gs.Draft != null)
+    {
+        PlayerTeam myTeam = gs.Player.LocalPlayer.Team;
+        var enemyTeam = gs.Player.LocalPlayer.Team;
+        if (myTeam == PlayerTeam.Radiant)
+        {
+            enemyTeam = PlayerTeam.Dire;
+        }
+        else
+        {
+            enemyTeam = PlayerTeam.Radiant;
+        }
+        var info = gs.Draft.Teams[enemyTeam].PickHeroIDs;
+        enemyPicks.Add(info.Values.First());
+        Console.WriteLine(enemyPicks[enemyPicks.Count-1]);
+    }
+    return enemyPicks;
 }
