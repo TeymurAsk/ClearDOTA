@@ -9,6 +9,9 @@
 
   <ItemGroup>
     <PackageReference Include="Dota2GSI" Version="2.1.1.8897" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.72" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.28.0" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="132.0.6834.11000" />
     <PackageReference Include="System.Speech" Version="9.0.1" />
   </ItemGroup>
 

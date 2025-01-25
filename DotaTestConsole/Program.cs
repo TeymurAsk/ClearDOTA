@@ -2,9 +2,12 @@
 using Dota2GSI.EventMessages;
 using Dota2GSI.Nodes;
 using Dota2GSI.Nodes.EventsProvider;
+using DotaTestConsole;
 using System.Linq;
 using System.Speech.Synthesis;
 
+
+htmlparser.FetchMetaHeroesAfterButtonClick();
 GameStateListener gsl = new GameStateListener(3000);
 SpeechSynthesizer synthesizer = new SpeechSynthesizer();
 synthesizer.Volume = 100; // Volume (0-100)
