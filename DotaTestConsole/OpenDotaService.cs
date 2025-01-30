@@ -11,6 +11,37 @@ namespace DotaTestConsole
     {
         HttpClient _httpClient = new();
         string BaseUrl = "https://api.opendota.com/api";
+        Dictionary<int, string> heroes = new()
+        {
+            { 1,"Anti-Mage" },
+            { 2,"Axe" },
+            { 3,"Bane" },
+            { 4,"Bloodseeker" },
+            { 5,"Crystal-Maiden" },
+            { 6,"Drow-Ranger" },
+            { 7,"Earth-Shaker" },
+            { 8,"Juggernaught" },
+            { 9,"Mirana" },
+            { 10,"Morphling" },
+            { 11,"Shadow-Fiend" },
+            { 12,"Phantom-Lancer" },
+            { 13,"Puck" },
+            { 14,"Pudge" },
+            { 15,"Razor" },
+            { 16,"Sand-King" },
+            { 17,"Storm-Spirit" },
+            { 18,"Sven" },
+            { 19,"Tiny" },
+            { 20,"Vengeful-Spirit" },
+            { 21,"Windranger" },
+            { 22,"" },
+            { 23,"Anti-mage" },
+            { 24,"Anti-mage" },
+            { 25,"Anti-mage" },
+            { 26,"Anti-mage" },
+            { 27,"Anti-mage" },
+            { 28,"Anti-mage" },
+        };
         async Task<int> GetMatchDetailsAsync()
         {
             var loses = 0;
