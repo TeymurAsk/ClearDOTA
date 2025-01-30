@@ -9,8 +9,8 @@ using System.Speech.Synthesis;
 
 GameStateListener gsl = new GameStateListener(3000);
 SpeechSynthesizer synthesizer = new SpeechSynthesizer();
-synthesizer.Volume = 100; // Volume (0-100)
-synthesizer.Rate = 0; // Speaking rate (-10 to 10)
+synthesizer.Volume = 100;
+synthesizer.Rate = 0;
 // GLOBAL Variables
 var roshan_death_time = 0;
 var roshan_spawn_min_time = 0;
@@ -21,8 +21,8 @@ var my_buyback_cooldown = 0;
 var heroRecommendations = new Dictionary<string, List<string>>
 {
     { "1", new List<string> { "Phantom Assassin", "Lifestealer", "Juggernaut", "Terrorblade", "Drow Ranger" } },
-    { "2", new List<string> { "Storm Spirit", "Invoker", "Shadow Fiend", "Tinker", "Puck" } },
-    { "3", new List<string> { "Tidehunter", "Centaur Warrunner", "Dark Seer", "Beastmaster", "Bristleback" } },
+    { "2", new List<string> { "Storm Spirit", "Invoker", "Shadow Fiend", "Ember Spirit", "Puck" } },
+    { "3", new List<string> { "Lycan", "Axe", "Tidehunter", "Dawnbreaker", "Mars" } },
     { "5", new List<string> { "Crystal Maiden", "Lion", "Dazzle", "Disruptor", "Warlock" } },
     { "4", new List<string> { "Earth Spirit", "Tusk", "Rubick", "Mirana", "Clockwerk" } }
 };
