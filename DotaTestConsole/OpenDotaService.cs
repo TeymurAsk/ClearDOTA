@@ -10,7 +10,7 @@ namespace DotaTestConsole
     public class OpenDotaService
     {
         HttpClient _httpClient = new();
-        string BaseUrl = "https://api.opendota.com/api";
+        string BaseUrl = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/v1/?key=6B67C373E9CED466FB0CAC0C26923643";
         Dictionary<int, string> heroes = new()
         {
             { 1,"Anti-Mage" },
